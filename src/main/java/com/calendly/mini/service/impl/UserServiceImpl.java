@@ -25,7 +25,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public void register(RegisterUserRequest request){
         try{
-            User user = new User(request.getUserName(), request.getName(), request.getPassword(), request.getEmail());
+            Password password = new Password(request.getPassword());
+            User user = new User(request.getUserName(), request.getName(), password.toString(), request.getEmail());
             dao.save(user);
         }catch (Exception e){
             log.error("Unable to save user", e);
