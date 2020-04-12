@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Table(name = "slots")
 @Data
@@ -16,13 +17,13 @@ public class SlotEntity {
 
     @Id
     @Column(name = "slot_id")
-    private String slotId;
+    private String slotId = UUID.randomUUID().toString();
 
     @Column(name = "user_id")
     private String userId;
 
     @Column(name = "date")
-    private LocalDate for_date;
+    private LocalDate forDate;
 
     @Column(name = "start_time")
     private int startTime;

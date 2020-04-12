@@ -1,7 +1,7 @@
 package com.calendly.mini.exception;
 
 import com.calendly.mini.response.ResponseDTO;
-import com.calendly.mini.util.ResponseCode;
+import com.calendly.mini.utils.ResponseCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

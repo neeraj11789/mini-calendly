@@ -5,11 +5,11 @@ import com.calendly.mini.model.Session;
 import com.calendly.mini.request.AuthUserRequest;
 import com.calendly.mini.request.RegisterUserRequest;
 import com.calendly.mini.response.AuthUserResponse;
-import com.calendly.mini.response.RegisterUserResponse;
+import com.calendly.mini.response.MessageResponse;
 import com.calendly.mini.response.ResponseDTO;
 import com.calendly.mini.service.UserService;
-import com.calendly.mini.util.Constants;
-import com.calendly.mini.util.ResponseCode;
+import com.calendly.mini.utils.Constants;
+import com.calendly.mini.utils.ResponseCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,7 +38,7 @@ public class UserController {
             throw new BadRequestException(Constants.BAD_REQUEST);
 
         // Register User
-        RegisterUserResponse response = service.register(request);
+        MessageResponse response = service.register(request);
         response.setRequestId(request.getRequestId());
 
         ResponseDTO responseDTO = new ResponseDTO();
