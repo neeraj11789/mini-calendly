@@ -1,5 +1,6 @@
 package com.calendly.mini.response;
 
+import com.calendly.mini.request.RegisterUserRequest;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
@@ -17,5 +18,9 @@ public class RegisterUserResponse implements Serializable {
 
     public RegisterUserResponse(String requestId) {
         this.requestId = requestId;
+    }
+
+    public RegisterUserResponse(RegisterUserRequest request) {
+        this.requestId = request.getRequestId();
     }
 }

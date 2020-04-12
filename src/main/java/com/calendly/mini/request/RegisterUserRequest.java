@@ -1,11 +1,13 @@
 package com.calendly.mini.request;
 
+import com.calendly.mini.util.Constants;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import static java.util.Objects.requireNonNull;
 import java.util.UUID;
 
 @Setter
@@ -29,10 +31,15 @@ public class RegisterUserRequest implements Serializable {
     private String email;
 
     /**
-     * @todo
+     * Validate the Registration Request
      * @return
      */
     public boolean isValid(){
+        requireNonNull(userName, Constants.NULL_USER);
+        requireNonNull(password, Constants.NULL_PASS);
+        requireNonNull(confirmPassword, Constants.NULL_PASS);
+        if(!password.equals(confirmPassword))
+            throw new IllegalArgumentException(Constants.PASS_MISMATCH);
         return true;
     }
 }

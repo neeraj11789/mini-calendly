@@ -1,6 +1,6 @@
 package com.calendly.mini.persist.dao;
 
-import com.calendly.mini.model.entity.User;
+import com.calendly.mini.model.entity.UserEntity;
 import com.calendly.mini.persist.UserRepository;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -11,29 +11,29 @@ import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
-public class UserDao implements Dao<User> {
+public class UserDao implements Dao<UserEntity> {
 
     @NonNull
     UserRepository repository;
 
     @Override
-    public Optional<User> get(String userId) {
+    public Optional<UserEntity> get(String userId) {
         return repository.findById(userId);
     }
 
     @Override
-    public List<User> getAll() {
+    public List<UserEntity> getAll() {
         return repository.findAll();
     }
 
     @Override
-    public void save(User user) {
-        repository.save(user);
+    public void save(UserEntity userEntity) {
+        repository.save(userEntity);
     }
 
     @Override
-    public void delete(User user) {
-        repository.delete(user);
+    public void delete(UserEntity userEntity) {
+        repository.delete(userEntity);
     }
 
     @Override
