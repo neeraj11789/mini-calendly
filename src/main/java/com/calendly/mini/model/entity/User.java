@@ -1,12 +1,14 @@
 package com.calendly.mini.model.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Data
 @Table(name = "users")
 @Entity
+@NoArgsConstructor
 public class User {
 
     public User(String username, String name, String password, String email) {
