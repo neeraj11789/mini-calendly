@@ -57,14 +57,12 @@ public class UserController {
 
         ResponseDTO responseDTO = new ResponseDTO();
         AuthUserResponse response = new AuthUserResponse(request.getRequestId());
-        try {
-            Session session = service.authenticate(request);
-            response.setSession(session);
-            responseDTO.setCode(ResponseCode.SUCCESS);
-            responseDTO.setPayload(response);
-        }catch (Exception e){
-            throw new InternalServerException(Constants.INTERNAL_ERROR);
-        }
+
+        Session session = service.authenticate(request);
+        response.setSession(session);
+        responseDTO.setCode(ResponseCode.SUCCESS);
+        responseDTO.setPayload(response);
+
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
 

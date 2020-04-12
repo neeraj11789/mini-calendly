@@ -32,7 +32,8 @@ public class Password {
      * @throws NoSuchAlgorithmException
      */
     public Password(@NonNull String password) {
-        this.password = generatePassword(password);
+//        this.password = generatePassword(password);
+        this.password = getHash(password);
     }
 
     /**
@@ -53,6 +54,15 @@ public class Password {
             throw new InternalServerException(Constants.INTERNAL_ERROR);
         }
         return new String(hash);
+    }
+
+    /**
+     * Temporary function to save the hash
+     * @param password
+     * @return
+     */
+    private String getHash(String password){
+        return String.valueOf(password.hashCode());
     }
 
     /**

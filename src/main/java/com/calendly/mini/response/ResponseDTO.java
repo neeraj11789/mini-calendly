@@ -15,5 +15,4 @@ import lombok.NoArgsConstructor;
 public class ResponseDTO<T> {
     private ResponseCode code;
     private T payload;
-    private boolean success = true;
 }
