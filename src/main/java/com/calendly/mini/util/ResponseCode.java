@@ -6,6 +6,7 @@ public enum ResponseCode {
     RESOURCE_CREATED(2001, "Resource Created"),
     UNAUTHORIZED(4001, "Unauthorized Access"),
     PAYMENT_REQUIRED(4002, "Payment Required"),
+    BAD_REQUEST(4000, "Bad Request"),
     FORBIDDEN(4003, "Forbidden Action"),
     RESOURCE_NOT_FOUND(4004, "Resource Not Found"),
     TIMEOUT_OCCURRED(5024, "A timeout occurred"),
