@@ -10,12 +10,15 @@ to define their available slots on a day and other people to book them.
 * Show an error response when an unauthenticated user is trying to access the APIs.
 
 ### Notes related to the application
-* UserId and UserName are synonymous. We are using full_name to save the User name. It is assumed that every user will have different userid.
+* UserId and UserName are synonymous. We are using full_name to save the User name. It is assumed that every user will have different userid
+* When same user is registered again, the information is updated and no error is thrown
+* We are assuming that there exists only one session for user. When the user tries to authenticate for multiple times, the existing session information is returned
 * 
 
-### To Do - 
-- [ ]  Check the case where same user id is registerd twice.
-- [ ]  Add DB Schema and limitations
+### To Do -
+- [ ]  Add DB Schema and limitations in the DOC
+- [ ]  Fix - Hash Issue with Password
 
 ### Known Issues/ Constraints
 - [ ] For Comparing the User Objects, only UserId and Password are used as for now we are not using email and mobile fields.
+- [ ] Using simple Hash function for create hash for password as the other one was not working. Need to check
