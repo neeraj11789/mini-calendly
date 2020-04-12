@@ -7,10 +7,7 @@ import com.calendly.mini.exception.BadRequestException;
 import com.calendly.mini.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @Slf4j
@@ -29,5 +26,17 @@ public class UserController {
         RegisterUserResponse response = new RegisterUserResponse(request.getRequestId());
         response.setMessage("User Registered");
         return response;
+    }
+
+    @RequestMapping("/")
+    @ResponseBody
+    String home() {
+        return "Hello World!";
+    }
+
+    @RequestMapping("/tmp")
+    @ResponseBody
+    String tmp() {
+        return "Hello World! Neeraj";
     }
 }
