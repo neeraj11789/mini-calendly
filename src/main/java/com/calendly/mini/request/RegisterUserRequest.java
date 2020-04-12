@@ -7,8 +7,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
-import static java.util.Objects.requireNonNull;
 import java.util.UUID;
+
+import static java.util.Objects.requireNonNull;
 
 @Setter
 @Getter

@@ -51,6 +51,12 @@ public class UserServiceImpl implements UserService {
         return response;
     }
 
+    /**
+     * Authentication Module for User
+     * Creates session on correct credentials if does not exist
+     * @param request
+     * @return
+     */
     @Override
     public Session authenticate(AuthUserRequest request) {
         // find user by id -> UserNotFoundException
