@@ -1,7 +1,7 @@
 package com.calendly.mini.service;
 
 import com.calendly.mini.model.SingleSlot;
-import com.calendly.mini.model.UserName;
+import com.calendly.mini.model.vo.UserName;
 
 import java.time.LocalDate;
 import java.util.List;

@@ -1,26 +1,33 @@
 package com.calendly.mini.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import javax.persistence.*;
 
-import java.util.UUID;
-
+@Table(name = "user")
+@Entity
 public class User {
 
-    @Getter
-    private String id = UUID.randomUUID().toString();
+    public User(String username, String name, String password, String email) {
+        this.username = username;
+        this.name = name;
+        this.password = password;
+        this.email = email;
+    }
 
-    @Getter @Setter
-    private UserName username;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-    @Getter @Setter
+    @Column(name = "user_name", nullable = false)
+    private String username;
+
+    @Column(name = "full_name")
     private String name;
 
-    @Getter @Setter
-    private Password password;
+    @Column(name = "password", nullable = false)
+    private String password;
 
-    @Getter @Setter
-    private Email email;
+    @Column(name = "email")
+    private String email;
 
     /**
      * ... other fields

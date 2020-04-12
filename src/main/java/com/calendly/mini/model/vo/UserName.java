@@ -1,20 +1,17 @@
-package com.calendly.mini.model;
+package com.calendly.mini.model.vo;
 
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class Password {
+public class UserName {
 
     @NonNull @Getter
-    private String password;
-
-    public boolean isStrong(){
-        return true;
-    }
+    private String username;
 
     public boolean validate(){
         return true;
     }
+
 }

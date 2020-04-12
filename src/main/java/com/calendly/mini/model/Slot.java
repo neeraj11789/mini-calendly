@@ -1,5 +1,7 @@
 package com.calendly.mini.model;
 
+import com.calendly.mini.model.vo.UserName;
+
 import java.time.LocalDate;
 import java.util.UUID;
 

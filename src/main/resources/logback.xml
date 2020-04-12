@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+
+    <appender name="FileAppender"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>logs/application.log
+        </File>
+        <Append>true</Append>
+        <encoder>
+            <pattern>[%d{dd MMM yy HH:mm:ss}] %c %L %-5p %X{rid} - %m%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/application.log.%d{yyyy-MM-dd-HH}.gz
+            </fileNamePattern>
+            <maxHistory>48</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="ConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+        <param name="target" value="SYSTEM_OUT"/>
+        <encoder>
+            <pattern>[%d{dd MMM yy HH:mm:ss}] %c %L %-5p %X{rid} - %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="FileAppender" />
+        <appender-ref ref="ConsoleAppender" />
+    </root>
+
+    <logger name="com.calendly.mini" level="DEBUG" additivity="false">
+        <appender-ref ref="FileAppender" />
+        <appender-ref ref="ConsoleAppender" />
+    </logger>
+
+</configuration>

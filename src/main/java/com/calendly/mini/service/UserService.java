@@ -1,13 +1,13 @@
 package com.calendly.mini.service;
 
 import com.calendly.mini.model.AuthKey;
-import com.calendly.mini.model.Email;
-import com.calendly.mini.model.Password;
-import com.calendly.mini.model.UserName;
+import com.calendly.mini.model.vo.Password;
+import com.calendly.mini.model.vo.UserName;
+import com.calendly.mini.request.RegisterUserRequest;
 
 public interface UserService {
 
-    void register(UserName userName, Password password, Password confirmPassword, String name, Email email);
+    void register(RegisterUserRequest request);
 
     AuthKey authenticate(UserName userName, Password password);
 

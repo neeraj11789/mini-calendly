@@ -1,11 +1,12 @@
-package com.calendly.mini.model;
+package com.calendly.mini.model.vo;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.Value;
 
+@Value
 public class Email {
 
-    @Getter @Setter
     String email;
 
     boolean validate(){
