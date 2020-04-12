@@ -3,20 +3,19 @@ package com.calendly.mini.model;
 import com.calendly.mini.model.vo.UserName;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 /**
  * @NOTE: This can be decomposed further
  */
-public class Slot {
+public class SlotCalendar {
 
     private String id = UUID.randomUUID().toString();
 
     private LocalDate date;
 
-    private int startTime;
-
-    private int endTime;
+    private List<SingleSlot> slots;
 
     private UserName slotUser;
 
