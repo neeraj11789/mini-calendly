@@ -1,7 +1,7 @@
 package com.calendly.mini.persist.dao;
 
-import com.calendly.mini.model.entity.User;
-import com.calendly.mini.persist.UserRepository;
+import com.calendly.mini.model.entity.Session;
+import com.calendly.mini.persist.SessionRepository;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -11,29 +11,29 @@ import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
-public class UserDao implements Dao<User> {
+public class SessionDao implements Dao<Session> {
 
     @NonNull
-    UserRepository repository;
+    SessionRepository repository;
 
     @Override
-    public Optional<User> get(String userId) {
-        return repository.findById(userId);
+    public Optional<Session> get(String id) {
+        return repository.findById(id);
     }
 
     @Override
-    public List<User> getAll() {
+    public List<Session> getAll() {
         return repository.findAll();
     }
 
     @Override
-    public void save(User user) {
-        repository.save(user);
+    public void save(Session session) {
+        repository.save(session);
     }
 
     @Override
-    public void delete(User user) {
-        repository.delete(user);
+    public void delete(Session session) {
+        repository.delete(session);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.calendly.mini.exception;
+package com.calendly.mini.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
@@ -11,8 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Response<T> {
-
-    private T payload ;
-    private boolean success = true ;
+public class ResponseDTO<T> {
+    private T payload;
+    private boolean success = true;
 }

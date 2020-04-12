@@ -1,13 +1,12 @@
 package com.calendly.mini.exception;
 
+import com.calendly.mini.response.ResponseDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-
-import java.util.concurrent.CompletionException;
 
 @Slf4j
 @ControllerAdvice
@@ -20,7 +19,7 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
      */
     @ExceptionHandler(BadRequestException.class)
     public ResponseEntity<Object> handleBadRequestException(Exception ex) {
-        Response<Error> responseDTO = new Response<>();
+        ResponseDTO<Error> responseDTO = new ResponseDTO<>();
         responseDTO.setSuccess(false);
         Error error = null;
         HttpStatus httpStatus = null;
@@ -40,7 +39,7 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
      */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleServerExceptions(Exception ex) {
-        Response<Error> responseDTO = new Response<>();
+        ResponseDTO<Error> responseDTO = new ResponseDTO<>();
         responseDTO.setSuccess(false);
         Error error = null;
         HttpStatus httpStatus = null;

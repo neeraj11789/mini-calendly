@@ -1,7 +1,9 @@
 package com.calendly.mini.controller;
 
 import com.calendly.mini.exception.BadRequestException;
+import com.calendly.mini.request.AuthUserRequest;
 import com.calendly.mini.request.RegisterUserRequest;
+import com.calendly.mini.response.AuthUserResponse;
 import com.calendly.mini.response.RegisterUserResponse;
 import com.calendly.mini.service.UserService;
 import com.calendly.mini.util.Constants;
@@ -25,6 +27,21 @@ public class UserController {
 
         RegisterUserResponse response = new RegisterUserResponse(request.getRequestId());
         response.setMessage("User Registered");
+        return response;
+    }
+
+    @RequestMapping(value = "/auth", method = RequestMethod.POST)
+    public AuthUserResponse authenticate(@RequestBody AuthUserRequest request){
+        if(!request.isValid())
+            throw new BadRequestException(Constants.BAD_REQUEST);
+
+        AuthUserResponse response = new AuthUserResponse(request.getRequestId());
+        try {
+            service.authenticate(request);
+            response.setMessage("Authenticated");
+        }catch (Exception e){
+            response.setMessage("Forbidden");
+        }
         return response;
     }
 

@@ -1,8 +1,11 @@
-package com.calendly.mini.model;
+package com.calendly.mini.model.entity;
+
+import lombok.Data;
 
 import javax.persistence.*;
 
-@Table(name = "user")
+@Data
+@Table(name = "users")
 @Entity
 public class User {
 
@@ -13,10 +16,10 @@ public class User {
         this.email = email;
     }
 
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Id
     @Column(name = "user_name", nullable = false)
     private String username;
 

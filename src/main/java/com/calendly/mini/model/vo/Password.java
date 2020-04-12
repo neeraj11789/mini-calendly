@@ -64,6 +64,23 @@ public class Password {
         return password;
     }
 
+    @Override
+    public int hashCode() {
+        return password.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(this == obj)
+            return true;
+
+        if(obj == null || obj.getClass()!= this.getClass())
+            return false;
+
+        String objPassword = (String) obj;
+        return objPassword.equals(password);
+    }
+
     /**
      * Check if the password is strong
      * @todo: To be implemented

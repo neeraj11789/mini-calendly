@@ -5,10 +5,14 @@ import java.util.Optional;
 
 public interface Dao<T> {
 
-    Optional<T> get(int id);
+    Optional<T> get(String id);
 
     List<T> getAll();
 
     void save(T t);
+
+    void delete(T t);
+
+    void deleteById(String id);
 
 }
