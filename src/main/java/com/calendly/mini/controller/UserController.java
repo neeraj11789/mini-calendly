@@ -1,12 +1,20 @@
 package com.calendly.mini.controller;
 
-import com.calendly.mini.persist.dao.UserDao;
-import com.calendly.mini.request.RegisterUserRequest;
-import com.calendly.mini.response.RegisterUserResponse;
 import com.calendly.mini.exception.BadRequestException;
+import com.calendly.mini.exception.InternalServerException;
+import com.calendly.mini.model.Session;
+import com.calendly.mini.request.AuthUserRequest;
+import com.calendly.mini.request.RegisterUserRequest;
+import com.calendly.mini.response.AuthUserResponse;
+import com.calendly.mini.response.RegisterUserResponse;
+import com.calendly.mini.response.ResponseDTO;
 import com.calendly.mini.service.UserService;
+import com.calendly.mini.util.Constants;
+import com.calendly.mini.util.ResponseCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -17,20 +25,50 @@ public class UserController {
     @Autowired
     UserService service;
 
+    /**
+     * Rest Endpoint to create a User
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public RegisterUserResponse register(@RequestBody RegisterUserRequest request){
+    public ResponseEntity<ResponseDTO> register(@RequestBody RegisterUserRequest request){
         if(!request.isValid())
-            throw new BadRequestException("Bad Request");
-        service.register(request);
+            throw new BadRequestException(Constants.BAD_REQUEST);
 
-        RegisterUserResponse response = new RegisterUserResponse(request.getRequestId());
-        response.setMessage("User Registered");
-        return response;
+        // Register User
+        RegisterUserResponse response = service.register(request);
+        response.setRequestId(request.getRequestId());
+
+        ResponseDTO responseDTO = new ResponseDTO();
+        responseDTO.setCode(ResponseCode.RESOURCE_CREATED);
+        responseDTO.setPayload(response);
+        return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
 
-    @RequestMapping("/")
-    @ResponseBody
-    String home() {
-        return "Hello World!";
+    /**
+     * Authenticate the User Information and Return Session Information
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/auth", method = RequestMethod.POST)
+    public ResponseEntity<ResponseDTO> authenticate(@RequestBody AuthUserRequest request){
+        if(!request.isValid())
+            throw new BadRequestException(Constants.BAD_REQUEST);
+
+        ResponseDTO responseDTO = new ResponseDTO();
+        AuthUserResponse response = new AuthUserResponse(request.getRequestId());
+
+        Session session = service.authenticate(request);
+        response.setSession(session);
+        responseDTO.setCode(ResponseCode.SUCCESS);
+        responseDTO.setPayload(response);
+
+        return new ResponseEntity<>(responseDTO, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    ResponseEntity<String> home() {
+        String st = "Hello World";
+        return new ResponseEntity<String>(st, HttpStatus.OK);
     }
 }
