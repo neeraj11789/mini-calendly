@@ -13,27 +13,37 @@ import java.util.concurrent.CompletionException;
 @ControllerAdvice
 public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 
+    /**
+     * Handle BadRequest Exceptions here for the application
+     * @param ex
+     * @return
+     */
     @ExceptionHandler(BadRequestException.class)
     public ResponseEntity<Object> handleBadRequestException(Exception ex) {
+        Response<Error> responseDTO = new Response<>();
+        responseDTO.setSuccess(false);
         Error error = null;
-
-        if (ex instanceof CompletionException) {
-            ex = (Exception) ex.getCause();
+        HttpStatus httpStatus = null;
+        if (ex instanceof Exception) {
+            error = new Error(ex.getClass().getName(), ex.getMessage());
+            log.error("Exception {}", ex);
+            httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         }
-        error = new Error("BAD REQUEST", ex.getMessage());
-        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+        responseDTO.setPayload(error);
+        return new ResponseEntity<>(responseDTO, httpStatus);
     }
 
+    /**
+     * Handle the Application Exceptions here
+     * @param ex
+     * @return
+     */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleServerExceptions(Exception ex) {
         Response<Error> responseDTO = new Response<>();
         responseDTO.setSuccess(false);
         Error error = null;
         HttpStatus httpStatus = null;
-
-        if (ex instanceof CompletionException) {
-            ex = (Exception) ex.getCause();
-        }
 
         if (ex instanceof Exception) {
             error = new Error(ex.getClass().getName(), ex.getMessage());
