@@ -33,10 +33,4 @@ public class UserController {
     String home() {
         return "Hello World!";
     }
-
-    @RequestMapping("/tmp")
-    @ResponseBody
-    String tmp() {
-        return "Hello World! Neeraj";
-    }
 }
