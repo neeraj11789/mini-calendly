@@ -1,6 +1,6 @@
 package com.calendly.mini.request;
 
-import com.calendly.mini.util.Constants;
+import com.calendly.mini.utils.Constants;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

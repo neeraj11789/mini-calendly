@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 @Data
 @Slf4j
-public class RegisterUserResponse implements Serializable {
+public class MessageResponse implements Serializable {
 
     private static final long serialVersionUID = 5773097659207648126L;
 
@@ -16,11 +16,11 @@ public class RegisterUserResponse implements Serializable {
 
     private String message;
 
-    public RegisterUserResponse(String requestId) {
+    public MessageResponse(String requestId) {
         this.requestId = requestId;
     }
 
-    public RegisterUserResponse(RegisterUserRequest request) {
+    public MessageResponse(RegisterUserRequest request) {
         this.requestId = request.getRequestId();
     }
 }

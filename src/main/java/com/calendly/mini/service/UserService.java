@@ -3,11 +3,11 @@ package com.calendly.mini.service;
 import com.calendly.mini.model.Session;
 import com.calendly.mini.request.AuthUserRequest;
 import com.calendly.mini.request.RegisterUserRequest;
-import com.calendly.mini.response.RegisterUserResponse;
+import com.calendly.mini.response.MessageResponse;
 
 public interface UserService {
 
-    RegisterUserResponse register(RegisterUserRequest request);
+    MessageResponse register(RegisterUserRequest request);
 
     Session authenticate(AuthUserRequest request);
 

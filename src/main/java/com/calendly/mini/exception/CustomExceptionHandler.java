@@ -1,7 +1,7 @@
 package com.calendly.mini.exception;
 
 import com.calendly.mini.response.ResponseDTO;
-import com.calendly.mini.util.ResponseCode;
+import com.calendly.mini.utils.ResponseCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,8 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
      * @param ex
      * @return
      */
-    @ExceptionHandler(BadRequestException.class)
+    @ExceptionHandler({BadRequestException.class, NullPointerException.class,
+            IllegalArgumentException.class, UserNotFoundException.class})
     public ResponseEntity<Object> handleBadRequestException(Exception ex) {
         ResponseDTO<ErrorDTO> responseDTO = new ResponseDTO<>();
         responseDTO.setCode(ResponseCode.BAD_REQUEST);

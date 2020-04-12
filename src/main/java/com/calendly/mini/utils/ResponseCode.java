@@ -1,4 +1,4 @@
-package com.calendly.mini.util;
+package com.calendly.mini.utils;
 
 public enum ResponseCode {
 

@@ -11,9 +11,9 @@ import com.calendly.mini.persist.dao.SessionDao;
 import com.calendly.mini.persist.dao.UserDao;
 import com.calendly.mini.request.AuthUserRequest;
 import com.calendly.mini.request.RegisterUserRequest;
-import com.calendly.mini.response.RegisterUserResponse;
+import com.calendly.mini.response.MessageResponse;
 import com.calendly.mini.service.UserService;
-import com.calendly.mini.util.Constants;
+import com.calendly.mini.utils.Constants;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,8 +38,8 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public RegisterUserResponse register(RegisterUserRequest request){
-        RegisterUserResponse response = new RegisterUserResponse(request.getRequestId());
+    public MessageResponse register(RegisterUserRequest request){
+        MessageResponse response = new MessageResponse(request.getRequestId());
         try{
             User user = new User(request);
             dao.save(user.toEntity());
