@@ -1,13 +1,12 @@
 package com.calendly.mini.service.impl;
 
 import com.calendly.mini.exception.InvalidCredentialsException;
-import com.calendly.mini.exception.UserNotFoundException;
-import com.calendly.mini.model.AuthKey;
 import com.calendly.mini.exception.RequestFailureException;
+import com.calendly.mini.exception.UserNotFoundException;
+import com.calendly.mini.model.Session;
 import com.calendly.mini.model.User;
-import com.calendly.mini.model.entity.Session;
+import com.calendly.mini.model.entity.SessionEntity;
 import com.calendly.mini.model.entity.UserEntity;
-import com.calendly.mini.model.vo.Password;
 import com.calendly.mini.persist.dao.SessionDao;
 import com.calendly.mini.persist.dao.UserDao;
 import com.calendly.mini.request.AuthUserRequest;
@@ -20,8 +19,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
+import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -45,7 +43,7 @@ public class UserServiceImpl implements UserService {
         try{
             User user = new User(request);
             dao.save(user.toEntity());
-            response.setMessage("User Registered Successfully");
+            response.setMessage(Constants.USER_SAVED);
         }catch (Exception e){
             log.error("Unable to save user", e);
             throw new RequestFailureException(Constants.REQUEST_FAILURE);
@@ -54,22 +52,28 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public AuthKey authenticate(AuthUserRequest request) throws InvalidKeySpecException, NoSuchAlgorithmException {
+    public Session authenticate(AuthUserRequest request) {
         // find user by id -> UserNotFoundException
         // check password -> InvalidCredentialsException
-        if(!dao.get(request.getUsername()).isPresent())
-            throw new UserNotFoundException("User not found in the system");
 
-        UserEntity userEntity = dao.get(request.getUsername()).get();
-        Password userpassword = new Password(request.getPassword());
+        User requestUser = new User(request);
+        Optional<UserEntity> daoEntity = dao.get(requestUser.getUsername());
 
-        if(!(userpassword.equals(userEntity.getPassword())))
-            throw new InvalidCredentialsException("Incorrect Credentials");
+        if(!daoEntity.isPresent())
+            throw new UserNotFoundException(Constants.USER_NOT_FOUND);
 
-        // Create Session
-        Session session = new Session(request.getUsername());
-        sessionDao.save(session);
+        User daoUser = new User(daoEntity.get());
 
-        return new AuthKey(session);
+        if(!(daoUser.equals(requestUser)))
+            throw new InvalidCredentialsException(Constants.INCORRECT_CREDENTIALS);
+
+        // if existing session if found, send it else create new session
+        Session session = new Session(daoUser);
+        Optional<SessionEntity> sessionDaoEntity = sessionDao.get(session.getUserId());
+
+        if(!sessionDaoEntity.isPresent())
+            sessionDao.save(session.toEntity());
+
+        return session;
     }
 }

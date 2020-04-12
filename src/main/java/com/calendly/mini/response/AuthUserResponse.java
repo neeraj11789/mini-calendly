@@ -1,5 +1,6 @@
 package com.calendly.mini.response;
 
+import com.calendly.mini.model.Session;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -9,7 +10,7 @@ public class AuthUserResponse implements Serializable {
 
     private String requestId;
 
-    private String message;
+    private Session session;
 
     public AuthUserResponse(String requestId) {
         this.requestId = requestId;

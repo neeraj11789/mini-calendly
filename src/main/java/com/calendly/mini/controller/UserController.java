@@ -1,6 +1,8 @@
 package com.calendly.mini.controller;
 
 import com.calendly.mini.exception.BadRequestException;
+import com.calendly.mini.exception.InternalServerException;
+import com.calendly.mini.model.Session;
 import com.calendly.mini.request.AuthUserRequest;
 import com.calendly.mini.request.RegisterUserRequest;
 import com.calendly.mini.response.AuthUserResponse;
@@ -49,18 +51,21 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/auth", method = RequestMethod.POST)
-    public AuthUserResponse authenticate(@RequestBody AuthUserRequest request){
+    public ResponseEntity<ResponseDTO> authenticate(@RequestBody AuthUserRequest request){
         if(!request.isValid())
             throw new BadRequestException(Constants.BAD_REQUEST);
 
+        ResponseDTO responseDTO = new ResponseDTO();
         AuthUserResponse response = new AuthUserResponse(request.getRequestId());
         try {
-            service.authenticate(request);
-            response.setMessage("Authenticated");
+            Session session = service.authenticate(request);
+            response.setSession(session);
+            responseDTO.setCode(ResponseCode.SUCCESS);
+            responseDTO.setPayload(response);
         }catch (Exception e){
-            response.setMessage("Forbidden");
+            throw new InternalServerException(Constants.INTERNAL_ERROR);
         }
-        return response;
+        return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
