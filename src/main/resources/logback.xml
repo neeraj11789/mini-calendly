@@ -4,14 +4,14 @@
 
     <appender name="FileAppender"
               class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <File>/var/log/application-mini-calendly.log
+        <File>logs/application.log
         </File>
         <Append>true</Append>
         <encoder>
             <pattern>[%d{dd MMM yy HH:mm:ss}] %c %L %-5p %X{rid} - %m%n</pattern>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>/var/log/application.log.%d{yyyy-MM-dd-HH}.gz
+            <fileNamePattern>logs/application.log.%d{yyyy-MM-dd-HH}.gz
             </fileNamePattern>
             <maxHistory>48</maxHistory>
         </rollingPolicy>
