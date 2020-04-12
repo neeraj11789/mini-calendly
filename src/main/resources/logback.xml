@@ -4,7 +4,7 @@
 
     <appender name="FileAppender"
               class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <File>logs/application.log
+        <File>/var/log/application-mini-calendly.log
         </File>
         <Append>true</Append>
         <encoder>
