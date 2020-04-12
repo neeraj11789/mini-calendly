@@ -1,10 +1,10 @@
 package com.calendly.mini.controller;
 
-import com.calendly.mini.persist.dao.UserDao;
+import com.calendly.mini.exception.BadRequestException;
 import com.calendly.mini.request.RegisterUserRequest;
 import com.calendly.mini.response.RegisterUserResponse;
-import com.calendly.mini.exception.BadRequestException;
 import com.calendly.mini.service.UserService;
+import com.calendly.mini.util.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +20,7 @@ public class UserController {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public RegisterUserResponse register(@RequestBody RegisterUserRequest request){
         if(!request.isValid())
-            throw new BadRequestException("Bad Request");
+            throw new BadRequestException(Constants.BAD_REQUEST);
         service.register(request);
 
         RegisterUserResponse response = new RegisterUserResponse(request.getRequestId());

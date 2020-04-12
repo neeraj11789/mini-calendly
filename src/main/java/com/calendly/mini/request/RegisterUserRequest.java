@@ -8,7 +8,10 @@ import lombok.Setter;
 import java.io.Serializable;
 import java.util.UUID;
 
-@Setter @Getter @AllArgsConstructor @NoArgsConstructor
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class RegisterUserRequest implements Serializable {
 
     private static final long serialVersionUID = -8986617214507610931L;
