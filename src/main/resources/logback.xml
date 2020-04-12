@@ -11,7 +11,7 @@
             <pattern>[%d{dd MMM yy HH:mm:ss}] %c %L %-5p %X{rid} - %m%n</pattern>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>logs/application.log.%d{yyyy-MM-dd-HH}.gz
+            <fileNamePattern>/var/log/application.log.%d{yyyy-MM-dd-HH}.gz
             </fileNamePattern>
             <maxHistory>48</maxHistory>
         </rollingPolicy>
