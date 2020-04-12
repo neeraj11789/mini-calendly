@@ -18,7 +18,8 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
      * @param ex
      * @return
      */
-    @ExceptionHandler(BadRequestException.class)
+    @ExceptionHandler({BadRequestException.class, NullPointerException.class,
+            IllegalArgumentException.class, UserNotFoundException.class})
     public ResponseEntity<Object> handleBadRequestException(Exception ex) {
         ResponseDTO<ErrorDTO> responseDTO = new ResponseDTO<>();
         responseDTO.setCode(ResponseCode.BAD_REQUEST);

@@ -40,7 +40,7 @@ public class CreateSlotRequest implements Serializable {
         Iterator<SingleSlot> slotIterator = slots.iterator();
         while (slotIterator.hasNext()){
             SingleSlot slot = slotIterator.next();
-            if(!isValidSlot(slot))
+            if(isInValidSlot(slot))
                 throw new IllegalArgumentException(Constants.INVALID_SLOT);
         }
 
@@ -52,14 +52,14 @@ public class CreateSlotRequest implements Serializable {
      * @param slot
      * @return
      */
-    private boolean isValidSlot(SingleSlot slot) {
+    private boolean isInValidSlot(SingleSlot slot) {
         int startTime = slot.getStartTime();
         int endTime = slot.getEndTime();
 
         boolean cond1 = startTime%100 != 0 || endTime%100 != 0;
         boolean cond2 = startTime < 100 || startTime > 2400;
         boolean cond3 = endTime < 100 || endTime > 2400;
-        boolean cond4 = endTime > startTime;
+        boolean cond4 = endTime < startTime;
 
         return cond1 || cond2 || cond3 || cond4;
     }
@@ -69,7 +69,7 @@ public class CreateSlotRequest implements Serializable {
      * @return
      */
     private boolean isValidDate() {
-        return date.isAfter(LocalDate.now());
+        return date.isAfter(LocalDate.now()) && date.isBefore(LocalDate.now().plusMonths(3));
     }
 
 }

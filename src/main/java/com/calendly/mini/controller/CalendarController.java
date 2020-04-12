@@ -46,6 +46,4 @@ public class CalendarController {
 
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
-
-
 }

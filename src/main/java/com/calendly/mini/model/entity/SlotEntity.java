@@ -22,7 +22,7 @@ public class SlotEntity {
     @Column(name = "user_id")
     private String userId;
 
-    @Column(name = "date")
+    @Column(name = "for_date")
     private LocalDate forDate;
 
     @Column(name = "start_time")

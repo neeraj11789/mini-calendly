@@ -5,6 +5,7 @@ import com.calendly.mini.request.CreateSlotRequest;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -56,6 +57,7 @@ public class SlotCalendar {
             slotEntity.setBookingStatus(slotStatus.ordinal());
             slotEntity.setStartTime(singleSlot.getStartTime());
             slotEntity.setEndTime(singleSlot.getEndTime());
+            slotEntity.setCreatedOn(LocalDateTime.now());
             // add to list
             list.add(slotEntity);
         }
