@@ -1,7 +1,7 @@
 package com.calendly.mini.model.vo;
 
 import com.calendly.mini.exception.WeakPasswordException;
-import com.calendly.mini.model.InternalServerException;
+import com.calendly.mini.exception.InternalServerException;
 import com.calendly.mini.util.Constants;
 import lombok.Getter;
 import lombok.NonNull;

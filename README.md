@@ -11,6 +11,7 @@ to define their available slots on a day and other people to book them.
 
 
 ### To Do - 
-- [ ] Check the case where same user id is registerd twice.
+- [ ]  Check the case where same user id is registerd twice.
+- [ ]  Add DB Schema and limitations
 
 ### Known Issues/ Constraints

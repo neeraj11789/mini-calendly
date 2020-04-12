@@ -19,16 +19,16 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
      */
     @ExceptionHandler(BadRequestException.class)
     public ResponseEntity<Object> handleBadRequestException(Exception ex) {
-        ResponseDTO<Error> responseDTO = new ResponseDTO<>();
+        ResponseDTO<ErrorDTO> responseDTO = new ResponseDTO<>();
         responseDTO.setSuccess(false);
-        Error error = null;
+        ErrorDTO errorDTO = null;
         HttpStatus httpStatus = null;
         if (ex instanceof Exception) {
-            error = new Error(ex.getClass().getName(), ex.getMessage());
+            errorDTO = new ErrorDTO(ex.getClass().getName(), ex.getMessage());
             log.error("Exception {}", ex);
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         }
-        responseDTO.setPayload(error);
+        responseDTO.setPayload(errorDTO);
         return new ResponseEntity<>(responseDTO, httpStatus);
     }
 
@@ -39,17 +39,17 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
      */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleServerExceptions(Exception ex) {
-        ResponseDTO<Error> responseDTO = new ResponseDTO<>();
+        ResponseDTO<ErrorDTO> responseDTO = new ResponseDTO<>();
         responseDTO.setSuccess(false);
-        Error error = null;
+        ErrorDTO errorDTO = null;
         HttpStatus httpStatus = null;
 
         if (ex instanceof Exception) {
-            error = new Error(ex.getClass().getName(), ex.getMessage());
+            errorDTO = new ErrorDTO(ex.getClass().getName(), ex.getMessage());
             log.error("Exception {}", ex);
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         }
-        responseDTO.setPayload(error);
+        responseDTO.setPayload(errorDTO);
         return new ResponseEntity<>(responseDTO, httpStatus);
 
     }

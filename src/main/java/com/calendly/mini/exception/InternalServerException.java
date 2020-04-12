@@ -1,4 +1,4 @@
-package com.calendly.mini.model;
+package com.calendly.mini.exception;
 
 public class InternalServerException extends RuntimeException {
     public InternalServerException() {
