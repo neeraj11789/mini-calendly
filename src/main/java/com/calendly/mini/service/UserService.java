@@ -11,4 +11,6 @@ public interface UserService {
 
     Session authenticate(AuthUserRequest request);
 
+    boolean userExists(String userId);
+
 }

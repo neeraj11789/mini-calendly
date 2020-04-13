@@ -1,6 +1,7 @@
 package com.calendly.mini.request;
 
 import com.calendly.mini.model.SingleSlot;
+import com.calendly.mini.model.SlotCalendar;
 import com.calendly.mini.utils.Constants;
 import lombok.Data;
 
@@ -34,42 +35,17 @@ public class CreateSlotRequest implements Serializable {
         if(slots.size() < 1)
             throw new IllegalArgumentException(Constants.NULL_SLOT);
 
-        if(!isValidDate())
+        if(!SlotCalendar.isValidDate(date))
             throw new IllegalArgumentException(Constants.INVALID_DATE);
 
         Iterator<SingleSlot> slotIterator = slots.iterator();
         while (slotIterator.hasNext()){
             SingleSlot slot = slotIterator.next();
-            if(isInValidSlot(slot))
+            if(SingleSlot.isInValidSlot(slot))
                 throw new IllegalArgumentException(Constants.INVALID_SLOT);
         }
 
         return true;
-    }
-
-    /**
-     * Validate the Slot
-     * @param slot
-     * @return
-     */
-    private boolean isInValidSlot(SingleSlot slot) {
-        int startTime = slot.getStartTime();
-        int endTime = slot.getEndTime();
-
-        boolean cond1 = startTime%100 != 0 || endTime%100 != 0;
-        boolean cond2 = startTime < 100 || startTime > 2400;
-        boolean cond3 = endTime < 100 || endTime > 2400;
-        boolean cond4 = endTime < startTime;
-
-        return cond1 || cond2 || cond3 || cond4;
-    }
-
-    /**
-     * The Date passed should not be older than todays date
-     * @return
-     */
-    private boolean isValidDate() {
-        return date.isAfter(LocalDate.now()) && date.isBefore(LocalDate.now().plusMonths(3));
     }
 
 }

@@ -6,6 +6,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,5 +40,9 @@ public class SlotDao implements Dao<SlotEntity> {
     @Override
     public void deleteById(String id) {
         repository.deleteById(id);
+    }
+
+    public Optional<SlotEntity> getAvailableSlot(LocalDate date, int startTime, int status, String userId){
+        return Optional.ofNullable(repository.availableSlotforBooking(date, startTime, status, userId));
     }
 }

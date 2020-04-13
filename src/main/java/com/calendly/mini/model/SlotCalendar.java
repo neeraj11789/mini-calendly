@@ -63,4 +63,13 @@ public class SlotCalendar {
         }
         return list;
     }
+
+    /**
+     * The Date passed should not be older than todays date
+     * @return
+     * @param date
+     */
+    public static boolean isValidDate(LocalDate date) {
+        return date.isAfter(LocalDate.now()) && date.isBefore(LocalDate.now().plusMonths(3));
+    }
 }

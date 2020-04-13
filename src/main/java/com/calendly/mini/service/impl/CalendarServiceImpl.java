@@ -1,21 +1,25 @@
 package com.calendly.mini.service.impl;
 
 import com.calendly.mini.exception.InternalServerException;
-import com.calendly.mini.model.SingleSlot;
+import com.calendly.mini.exception.UnavailableException;
 import com.calendly.mini.model.SlotCalendar;
+import com.calendly.mini.model.SlotStatus;
 import com.calendly.mini.model.entity.SlotEntity;
 import com.calendly.mini.persist.dao.SlotDao;
+import com.calendly.mini.request.BookSlotRequest;
 import com.calendly.mini.request.CreateSlotRequest;
 import com.calendly.mini.response.MessageResponse;
 import com.calendly.mini.service.CalendarService;
+import com.calendly.mini.service.UserService;
 import com.calendly.mini.utils.Constants;
+import com.calendly.mini.utils.ResponseCode;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.Iterator;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -24,6 +28,9 @@ public class CalendarServiceImpl implements CalendarService {
 
     @NonNull
     private SlotDao dao;
+
+    @NonNull
+    private UserService userService;
 
     /**
      * Create Slot for the User
@@ -48,8 +55,32 @@ public class CalendarServiceImpl implements CalendarService {
         return response;
     }
 
+    /**
+     * Book a slot if available
+     * @param request
+     * @return
+     */
     @Override
-    public void bookSlot(String userName, LocalDate date, SingleSlot singleSlot) {
+    public MessageResponse bookSlot(BookSlotRequest request) {
+        MessageResponse response = new MessageResponse(request.getRequestId());
 
+        // check if user exist in system
+        if(!userService.userExists(request.getUser()))
+            throw new IllegalArgumentException(Constants.USER_NOT_FOUND);
+
+        // query for available slots on the requested date for the user
+        Optional<SlotEntity> optionalSlotEntity = dao.getAvailableSlot(request.getDate(), request.getSlot().getStartTime()
+                , SlotStatus.FREE.ordinal(), request.getUser());
+        if(!optionalSlotEntity.isPresent())
+            throw new UnavailableException(ResponseCode.RESOURCE_UNAVAILABLE.name());
+
+        // update the slot with requesting user details and new status
+        SlotEntity slotEntity = optionalSlotEntity.get();
+        slotEntity.setBookingStatus(SlotStatus.BOOKED.ordinal());
+        slotEntity.setBookedByUser(request.getRequestfromUser());
+        dao.save(slotEntity);
+
+        response.setMessage(Constants.SLOT_BOOKED);
+        return response;
     }
 }

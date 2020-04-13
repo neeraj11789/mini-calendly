@@ -11,6 +11,7 @@ public enum ResponseCode {
     RESOURCE_NOT_FOUND(4004, "Resource Not Found"),
     TIMEOUT_OCCURRED(5024, "A timeout occurred"),
     INTERNAL_SERVER_ERROR(5000, "Internal Server Error"),
+    RESOURCE_UNAVAILABLE(5103, "Resource Unavailable"),
     SERVICE_UNAVAILABLE(5003, "Service Unavailable"),
     RESOURCE_CREATION_FAILED(5103, "Resource Creation Failed");
 

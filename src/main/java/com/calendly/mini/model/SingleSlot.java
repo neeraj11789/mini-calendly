@@ -13,7 +13,20 @@ public class SingleSlot {
     @NonNull
     private int endTime;
 
-    public boolean validate(){
-        return true;
+    /**
+     * Validate the Slot
+     * @param slot
+     * @return
+     */
+    public static boolean isInValidSlot(SingleSlot slot) {
+        int startTime = slot.getStartTime();
+        int endTime = slot.getEndTime();
+
+        boolean cond1 = startTime%100 != 0 || endTime%100 != 0;
+        boolean cond2 = startTime < 100 || startTime > 2400;
+        boolean cond3 = endTime < 100 || endTime > 2400;
+        boolean cond4 = endTime < startTime;
+
+        return cond1 || cond2 || cond3 || cond4;
     }
 }

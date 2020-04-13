@@ -1,6 +1,5 @@
 package com.calendly.mini.controller;
 
-
 import com.calendly.mini.exception.BadRequestException;
 import com.calendly.mini.request.BookSlotRequest;
 import com.calendly.mini.request.CreateSlotRequest;
@@ -25,6 +24,11 @@ public class CalendarController {
     @Autowired
     CalendarService service;
 
+    /**
+     * Define the available slots for a user
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/create-slots", method = RequestMethod.POST)
     public ResponseEntity<ResponseDTO> createSlots(@RequestBody CreateSlotRequest request){
         if(!request.isValid())
@@ -40,10 +44,23 @@ public class CalendarController {
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
 
+    /**
+     * Book A Slot from a Users Calendar if available
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/book-slot", method = RequestMethod.POST)
     public ResponseEntity<ResponseDTO> bookSlot(@RequestBody BookSlotRequest request){
-        ResponseDTO responseDTO = new ResponseDTO();
+        if(!request.isValid())
+            throw new BadRequestException(Constants.BAD_REQUEST);
 
+        // Create Available Slots
+        MessageResponse response = service.bookSlot(request);
+        response.setRequestId(request.getRequestId());
+
+        ResponseDTO responseDTO = new ResponseDTO();
+        responseDTO.setCode(ResponseCode.SUCCESS);
+        responseDTO.setPayload(response);
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
 }

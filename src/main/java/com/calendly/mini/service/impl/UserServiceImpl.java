@@ -52,6 +52,20 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * Check if the User Exists in the System
+     * @param userId
+     * @return
+     */
+    public boolean userExists(String userId){
+        Optional<UserEntity> daoEntity = dao.get(userId);
+
+        if(!daoEntity.isPresent())
+            throw new UserNotFoundException(Constants.USER_NOT_FOUND);
+
+        return true;
+    }
+
+    /**
      * Authentication Module for User
      * Creates session on correct credentials if does not exist
      * @param request

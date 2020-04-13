@@ -35,7 +35,29 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     /**
-     * Handle the Application Exceptions here
+     * Handle the Unavailable Service/Resource Exceptions
+     * @param ex
+     * @return
+     */
+    @ExceptionHandler({UnavailableException.class, InvalidCredentialsException.class})
+    public ResponseEntity<Object> handleUnavailablilityExceptions(Exception ex) {
+        ResponseDTO<ErrorDTO> responseDTO = new ResponseDTO<>();
+        responseDTO.setCode(ResponseCode.RESOURCE_UNAVAILABLE);
+        ErrorDTO errorDTO = null;
+        HttpStatus httpStatus = null;
+
+        if (ex instanceof Exception) {
+            errorDTO = new ErrorDTO(ex.getClass().getName(), ex.getMessage());
+            log.error("Exception {}", ex);
+            httpStatus = HttpStatus.NOT_FOUND;
+        }
+        responseDTO.setPayload(errorDTO);
+        return new ResponseEntity<>(responseDTO, httpStatus);
+
+    }
+
+    /**
+     * Handle the Server Exceptions
      * @param ex
      * @return
      */
