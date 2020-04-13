@@ -21,7 +21,7 @@ to define their available slots on a day and other people to book them.
 * We are restraining the user from defining multiple slots for the same hours. Those requests are just ignored.
 * Booking a slot Does Not Require any Authentication. Anyone can book it if knows the userId, date and Available Slot
 * We are saving the slot booking with the information of the person who has booked it.
-* We are saving all the data in H2(Springboots InMemory DataStore) [https://mini-calendly.herokuapp.com/h2-console](It can be found here on Heroku). For Login - Need to change JDBC:URL to -> jdbc:h2:mem:testdb   
+* We are saving all the data in H2 Springboots InMemory DataStore. [It can be found here on Heroku](https://mini-calendly.herokuapp.com/h2-console). For Login - Need to change JDBC:URL to -> jdbc:h2:mem:testdb   
 
 ### POSTMAN Collection 
 The application is deployed on Heroku and the for major cases, requests are added to the postman collection added below - 
