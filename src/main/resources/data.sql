@@ -28,3 +28,7 @@ CREATE TABLE slots (
     created_on timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     booked_on timestamp DEFAULT NULL
 );
+
+select * from users;
+select * from sessions;
+select * from slots;
