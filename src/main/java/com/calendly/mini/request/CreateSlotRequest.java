@@ -47,5 +47,4 @@ public class CreateSlotRequest implements Serializable {
 
         return true;
     }
-
 }

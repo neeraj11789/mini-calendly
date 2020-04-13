@@ -20,4 +20,5 @@ public class Constants {
     public static final String SLOTS_ADDED = "Slots Successfully added to the calendar";
     public static final String SLOT_BOOKED = "Slot Successfully booked and updated";
     public static final String SLOT_UNAVAILABLE = "Requested Slot it not available";
+    public static final String UNAUTHORIZED_ACCESS = "Unauthorized Access. Please check userId and headers for secretKey and accessKey";
 }

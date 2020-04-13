@@ -68,7 +68,7 @@ public class CalendarServiceImpl implements CalendarService {
         MessageResponse response = new MessageResponse(request.getRequestId());
 
         // check if user exist in system
-        if(!userService.userExists(request.getUser()))
+        if(!userService.userExists(request.getUser()).isPresent())
             throw new IllegalArgumentException(Constants.USER_NOT_FOUND);
 
         // query for available slots on the requested date for the user

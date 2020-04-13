@@ -56,13 +56,22 @@ public class UserServiceImpl implements UserService {
      * @param userId
      * @return
      */
-    public boolean userExists(String userId){
+    public Optional<UserEntity> userExists(String userId){
         Optional<UserEntity> daoEntity = dao.get(userId);
 
         if(!daoEntity.isPresent())
             throw new UserNotFoundException(Constants.USER_NOT_FOUND);
 
-        return true;
+        return daoEntity;
+    }
+
+    /**
+     * Check if the User Exists in the System
+     * @param userId
+     * @return
+     */
+    public Optional<SessionEntity> sessionExists(String userId){
+        return sessionDao.get(userId);
     }
 
     /**
