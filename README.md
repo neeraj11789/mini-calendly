@@ -22,6 +22,10 @@ to define their available slots on a day and other people to book them.
 * Booking a slot Does Not Require any Authentication. Anyone can book it if knows the userId, date and Available Slot
 * We are saving the slot booking with the information of the person who has booked it.
 
+### POSTMAN Colletion
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/77d2af8aedfa969fae94)
+
 ### Known Issues/ Limitations
 - [ ] For Comparing the User Objects, only UserId and Password are used as for now we are not using email and mobile fields.
 - [ ] Using simple Hash function for create hash for password as the other one was not working.
