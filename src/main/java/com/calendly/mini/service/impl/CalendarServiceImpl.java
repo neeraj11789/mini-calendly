@@ -45,7 +45,11 @@ public class CalendarServiceImpl implements CalendarService {
             Iterator<SlotEntity> slots = slotCalendar.toEntity().iterator();
             while (slots.hasNext()){
                 SlotEntity entity = slots.next();
-                dao.save(entity);
+                // check if it is duplicate - else save
+                Optional<SlotEntity> optionalSlotEntity = dao.getAvailableSlot(entity.getForDate(),
+                        entity.getStartTime(), SlotStatus.FREE.ordinal(), entity.getUserId());
+                if(!optionalSlotEntity.isPresent())
+                    dao.save(entity);
             }
             response.setMessage(Constants.SLOTS_ADDED);
         }catch (Exception e){
