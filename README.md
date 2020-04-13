@@ -9,7 +9,7 @@ to define their available slots on a day and other people to book them.
 * Create APIs using which a user can book an available slot.
 * Show an error response when an unauthenticated user is trying to access the APIs.
 
-### Notes related to the application
+### Notes related to the Application
 * UserId and UserName are synonymous. We are using full_name to save the User name. It is assumed that every user will have different userid
 * When same user is registered again, the information is updated and no error is thrown
 * We are assuming that there exists only one session for user. When the user tries to authenticate for multiple times, the existing session information is returned
@@ -21,9 +21,10 @@ to define their available slots on a day and other people to book them.
 * We are restraining the user from defining multiple slots for the same hours. Those requests are just ignored.
 * Booking a slot Does Not Require any Authentication. Anyone can book it if knows the userId, date and Available Slot
 * We are saving the slot booking with the information of the person who has booked it.
+* We are saving all the data in H2(Springboots InMemory DataStore) [https://mini-calendly.herokuapp.com/h2-console](It can be found here on Heroku). For Login - Need to change JDBC:URL to -> jdbc:h2:mem:testdb   
 
-### POSTMAN Colletion
-
+### POSTMAN Collection 
+The application is deployed on Heroku and the for major cases, requests are added to the postman collection added below - 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/77d2af8aedfa969fae94)
 
 ### Known Issues/ Limitations
