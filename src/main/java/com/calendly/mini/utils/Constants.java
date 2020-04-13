@@ -19,4 +19,5 @@ public class Constants {
     public static final String INVALID_SLOT = "Invalid Slot. Valid Values from 100 to 2400 with the gap of 100";
     public static final String SLOTS_ADDED = "Slots Successfully added to the calendar";
     public static final String SLOT_BOOKED = "Slot Successfully booked and updated";
+    public static final String SLOT_UNAVAILABLE = "Requested Slot it not available";
 }

@@ -12,7 +12,6 @@ import com.calendly.mini.response.MessageResponse;
 import com.calendly.mini.service.CalendarService;
 import com.calendly.mini.service.UserService;
 import com.calendly.mini.utils.Constants;
-import com.calendly.mini.utils.ResponseCode;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -76,7 +75,7 @@ public class CalendarServiceImpl implements CalendarService {
         Optional<SlotEntity> optionalSlotEntity = dao.getAvailableSlot(request.getDate(), request.getSlot().getStartTime()
                 , SlotStatus.FREE.ordinal(), request.getUser());
         if(!optionalSlotEntity.isPresent())
-            throw new UnavailableException(ResponseCode.RESOURCE_UNAVAILABLE.name());
+            throw new UnavailableException(Constants.SLOT_UNAVAILABLE);
 
         // update the slot with requesting user details and new status
         SlotEntity slotEntity = optionalSlotEntity.get();
