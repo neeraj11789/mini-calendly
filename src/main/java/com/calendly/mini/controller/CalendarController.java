@@ -43,6 +43,8 @@ public class CalendarController {
         if(!request.isValid())
             throw new BadRequestException(Constants.BAD_REQUEST);
 
+        authenticate(request, accessKey, secretKey);
+
         // Create Available Slots
         MessageResponse response = service.createSlot(request);
         response.setRequestId(request.getRequestId());
@@ -54,12 +56,12 @@ public class CalendarController {
     }
 
     /**
-     * Check if user is authorized. Should pass the keys in headers
+     * Check if user is authenticated. Should pass the keys in headers
      * @param request
      * @param accessKey
      * @param secretKey
      */
-    private void isAuthorized(CreateSlotRequest request, String accessKey, String secretKey) {
+    private void authenticate(CreateSlotRequest request, String accessKey, String secretKey) {
         // check user exists in the system
         userService.userExists(request.getUser());
 
