@@ -13,12 +13,15 @@ to define their available slots on a day and other people to book them.
 * UserId and UserName are synonymous. We are using full_name to save the User name. It is assumed that every user will have different userid
 * When same user is registered again, the information is updated and no error is thrown
 * We are assuming that there exists only one session for user. When the user tries to authenticate for multiple times, the existing session information is returned
-* 
+* For Authentication - a user can get his access-key and secret-key using auth API
+* For creating slot/calendar - user needs to be registered in the system and should authenticate his request using accesskey and secretkey
+* The access-key and the secret-key has to be passed in the headers
+* A Valid Slot would be from current date till next 3 months
+* A Valid Slot has to be defined from 100 to 2400 with steps of 100. Other values would be considered as invalid.
+* We are restraining the user from defining multiple slots for the same hours. Those requests are just ignored.
+* Booking a slot Does Not Require any Authentication. Anyone can book it if knows the userId, date and Available Slot
+* We are saving the slot booking with the information of the person who has booked it.
 
-### To Do -
-- [ ]  Add DB Schema and limitations in the DOC
-- [ ]  Fix - Hash Issue with Password
-
-### Known Issues/ Constraints
+### Known Issues/ Limitations
 - [ ] For Comparing the User Objects, only UserId and Password are used as for now we are not using email and mobile fields.
-- [ ] Using simple Hash function for create hash for password as the other one was not working. Need to check
+- [ ] Using simple Hash function for create hash for password as the other one was not working.
