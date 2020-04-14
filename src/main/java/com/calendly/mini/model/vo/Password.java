@@ -1,26 +1,19 @@
 package com.calendly.mini.model.vo;
 
-import com.calendly.mini.exception.InternalServerException;
 import com.calendly.mini.exception.WeakPasswordException;
-import com.calendly.mini.utils.Constants;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
-import java.security.spec.KeySpec;
 import java.util.Random;
 
 @Slf4j
 public class Password {
 
     private static final Random RANDOM = new SecureRandom();
-    private static final int ITERATIONS = 100;
-    private static final int KEY_LENGTH = 128;
 
     @Getter
     private String password;
@@ -32,28 +25,7 @@ public class Password {
      * @throws NoSuchAlgorithmException
      */
     public Password(@NonNull String password) {
-//        this.password = generatePassword(password);
         this.password = getHash(password);
-    }
-
-    /**
-     * Generate Password Hash
-     * @param password
-     * @return
-     * @throws NoSuchAlgorithmException
-     * @throws InvalidKeySpecException
-     */
-    private String generatePassword(String password){
-        byte[] hash;
-        try {
-            KeySpec spec = new PBEKeySpec(password.toCharArray(), getSalt(), ITERATIONS, KEY_LENGTH);
-            SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
-            hash =  factory.generateSecret(spec).getEncoded();
-        }catch (Exception e){
-            log.error("Unable to create hash of password");
-            throw new InternalServerException(Constants.INTERNAL_ERROR);
-        }
-        return new String(hash);
     }
 
     /**
