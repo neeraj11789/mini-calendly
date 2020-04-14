@@ -25,8 +25,9 @@ public class SingleSlot {
         boolean cond1 = startTime%100 != 0 || endTime%100 != 0;
         boolean cond2 = startTime < 100 || startTime > 2400;
         boolean cond3 = endTime < 100 || endTime > 2400;
-        boolean cond4 = endTime < startTime;
+        boolean cond4 = endTime < startTime ;
+        boolean cond5 = endTime - startTime > 100;
 
-        return cond1 || cond2 || cond3 || cond4;
+        return cond1 || cond2 || cond3 || cond4 || cond5;
     }
 }
